@@ -1,0 +1,39 @@
+﻿@model Department
+@{
+    ViewData["Title"] = "New Department";
+}
+
+@section Head{
+    <h1>Department</h1>
+}
+
+<div class="row">
+    <div class="col-6 mx-auto">
+        <form class="form" method="post" asp-action="Create">
+            <div class="input-group my-2">
+                <label asp-for="Name" class="input-group-text"></label>
+                <input class="form-control" asp-for="Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="input-group my-2">
+                <label asp-for="Manager" class="input-group-text"></label>
+                <input class="form-control" asp-for="Manager" />
+                <span asp-validation-for="Manager" class="text-danger"></span>
+            </div>
+
+            <div class="my-1">
+                <a asp-action="Index" class="btn btn-info me-1"><i class="bi bi-arrow-left"></i> Back</a>
+                <input class="btn btn-success m-1" type="submit" value="Create!" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+@section scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+        }

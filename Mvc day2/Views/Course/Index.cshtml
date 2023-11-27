@@ -1,0 +1,50 @@
+﻿@model List<Course>
+@{
+    ViewData["Title"] = "Courses";
+}
+@section Head{
+    <h1>Course</h1>
+}
+@section Custom{
+    <h2>@ViewBag.SS</h2>
+}
+<a asp-action="new_crs" class="col-3 btn btn-outline-success m-1"><i class="bi bi-file-earmark-plus-fill"></i> Course</a>
+<table class="table table-striped">
+
+    <thead class="table-dark">
+    <th>#</th>
+    <th>Name</th>
+    <th>Degree</th>
+    <th>Min-Degree</th>
+    <th>Grade</th>
+    <th>Hourse</th>
+    <th>Department</th>
+    <th>Actions</th>
+    </thead>
+
+    <tbody>
+        @foreach(var item in Model)
+        {
+           <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Degree</td>
+                <td>@item.MinDegree</td>
+                <td>@item.Grade</td>
+                <td>@item.Hours</td>
+                <td>@item.Department.Name</td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger mx-2"><i class="bi bi-trash3-fill"></i></a>
+                    <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-outline-warning mx-2"><i class="bi bi-pencil-square"></i></a>
+                </td>
+              
+           </tr>  
+        }
+       
+
+    </tbody>
+
+
+</table>
+
+<h2>@ViewBag.SS</h2>

@@ -1,0 +1,19 @@
+﻿@model Instructor
+@{
+    ViewData["Title"] = "Inst Details";
+}
+@section Head{
+    <h1>Instructor Details</h1>
+}
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        @* <img class="card-img-top" img style="width:100px;" src="/images/@Model.image" /> *@
+        <h5 class="card-title">Name :@Model.Name</h5>
+        <p class="card-text">Salary: @Model.Salary</p>
+        <p class="card-text">Address: @Model.Address</p>
+        <p class="card-text">Department Name: @Model.Department.Name</p>
+        <p class="card-text">Course Name: @Model.Course.Name</p>
+        <a asp-action="Index" class="btn btn-primary rounded-3">Back to List</a>
+    </div>
+</div>

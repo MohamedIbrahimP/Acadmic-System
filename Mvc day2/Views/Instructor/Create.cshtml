@@ -1,0 +1,91 @@
+﻿@model Instructor
+@{
+    ViewData["Title"] = "New Instructor";
+    SelectList deptOptios = new SelectList(ViewBag.deptList, "Id", "Name");
+
+}
+
+@section Head{
+    <h1>Instructor</h1>
+}
+
+<div class="row">
+    <div class="col-6 mx-auto">
+        <span asp-validation-for="profileImage"></span>
+        <form class="form" asp-action="Create" method="post" enctype="multipart/form-data">
+
+            <div class="input-group my-2">
+                <label asp-for="Name" class="input-group-text"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="input-group my-2">
+                <label asp-for="Address" class="input-group-text"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="input-group my-2">
+                <label asp-for="profileImage" class="input-group-text"></label>
+                <input type="file" name="profileImageFile" class="form-control" />
+            </div>
+
+            <div class="input-group my-2">
+                <label asp-for="Salary" class="input-group-text"></label>
+                <input asp-for="Salary" class="form-control" />
+                <span asp-validation-for="Salary" class="text-danger"></span>
+            </div>
+
+            <div class="input-group my-2">
+                <label asp-for="dept_id" class="input-group-text"></label>
+                <select asp-for="dept_id" asp-items="deptOptios" class="form-select" name="dept_id" onchange="ShowCourses()">
+                    <option value="0">--Select Department--</option>
+                </select>
+                <span asp-validation-for="dept_id" class="text-danger"></span>
+
+            </div>
+
+            <div class="input-group my-2">
+                <label asp-for="crs_id" class="input-group-text"></label>
+                <select asp-for="crs_id" name="crs_id" class="form-select">
+                </select>
+            </div>
+
+            <div class="my-1">
+                <a asp-action="Index" class="btn btn-info me-1"><i class="bi bi-arrow-left"></i> Back</a>
+                <input class="btn btn-success m-1" type="submit" value="Create!" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+
+
+@section scripts{
+   <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+       
+    <script>
+        function ShowCourses() {
+            var deptID = document.getElementById("dept_id").value;
+            console.log(deptID);
+            $.ajax(
+                {
+                    url: "/Instructor/ShowCoursesInDEpartment?DeptId=" + deptID,
+                    success: function (result) {
+                        console.log(result);
+                        document.getElementById("crs_id").innerHTML = "";
+                        for (let item of result) {
+                            console.log(item);
+                            document.getElementById("crs_id").innerHTML
+                                += "<option value=" + item.id + ">" + item.name + "</option>";
+                        }
+                    }
+                });
+        }
+    </script>
+}

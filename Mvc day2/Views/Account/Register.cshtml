@@ -1,0 +1,63 @@
+﻿@model RegisterUserViewModel
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "_Home";
+}
+
+
+
+<!---------------------------------------------------------->
+
+
+<div class="container text-center position-fixed top-50 start-50 translate-middle">
+    <div class="row d-flex align-items-center">
+<div class=" position-relative col-4 mx-auto text-center background rounded pb-1">
+
+    <svg class="position-absolute top-0 start-0 opacity-25" width="130px" height="100px">
+        <circle cx="0" cy="-30" r="130"
+                stroke="green" stroke-width="4" fill="yellow" />
+    </svg>
+
+            <form asp-action="Register" class="form p-2">
+
+        <label class="m-3 text-light fs-1 fw-bolder faded">Sign Up</label>
+        <div>
+                    <input asp-for="UserName" class="form-control-sm p-2 border-0 my-2" placeholder="User Name">
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+
+                    <input asp-for="Password" class="form-control-sm p-2 border-0 my-2" placeholder="Password">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+            
+                    <input asp-for="ConfirmPassword" class="form-control-sm p-2 border-0 my-2"placeholder="Confirm Password">
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                       
+                    <input asp-for="Address" class="form-control-sm p-2 border-0 my-2" placeholder="Address">
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                
+                </div>
+
+        <div class="row my-3">
+            <div class="col-8 mx-auto">
+                        <button type="submit" class="btn form-control text-center text-light fw-bolder">Sign Up</button>
+            </div>
+        </div>
+    </form>
+            <a class="my-5 fs-6 link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" asp-action="Login">Log In</a>
+
+    <svg class="position-absolute bottom-0 end-0 opacity-25 " width="62" height="74">
+        <circle cx="100%" cy="100%" r="60"
+                stroke="green" stroke-width="4" fill="yellow" />
+    </svg>
+
+        </div>
+        <div asp-validation-summary="All" class="text-danger"></div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

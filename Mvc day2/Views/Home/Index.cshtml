@@ -1,0 +1,23 @@
+﻿@using System.Security.Claims
+@{
+    ViewData["Title"] = "Home Page";
+    var userName = User.Identity.Name;
+}
+@section Head{
+    @if (userName !=null)
+    {
+        <h3>@userName</h3>
+    }
+    else
+    {
+         <h1>Home</h1>
+    }
+   
+    
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Contact With Us <a href="https://mohamedibrahimp.github.io/My-Portfolio/">building Web apps with ASP.NET Core</a>.</p>
+</div>

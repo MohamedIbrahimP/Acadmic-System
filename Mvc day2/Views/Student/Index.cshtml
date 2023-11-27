@@ -1,0 +1,106 @@
+﻿@model List<StudentIndexViewModel>
+
+@{
+    ViewData["Title"] = "Students";
+}
+@section Head{
+    <h1>Student</h1>
+}
+<div class="row m-2">
+    <a class="col-3 btn btn-outline-success" asp-action="Create"> <i class="bi bi-file-earmark-plus-fill"></i> Student </a>
+    <div class="col-3 mx-1">
+        <div class=" input-group">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input type="text" class="form-control" placeholder="Search for names..." id="myInput" oninput="filterTable()">
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped text-center" id="myTable">
+    <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Course Name</th>
+            <th>Degree</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+               <td>@item.id</td>
+               <td>@item.studentName</td>
+                <td>
+                    @foreach(var item2 in item.courses)
+                    {
+                        <p style="background-color: @item2.color">
+                            @item2.courseName 
+                            <br />
+                        </p>
+                        
+                    }
+                </td>
+               <td>
+                    @foreach (var item3 in item.courses)
+                    {
+                        <p>
+                        @item3.degree <br />
+                        </p>
+                    }
+               </td>
+
+               <td>
+                    <a class="btn btn-outline-danger mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal-@item.id"><i class="bi bi-trash3-fill"></i></a>
+                    <a class="btn btn-outline-warning mx-2" asp-action="Update" asp-route-id="@item.id"><i class="bi bi-pencil-square"></i></a>
+               </td>
+            </tr>
+            <partial name="_OnDeleteModalPartial" model="item"  />
+        }
+    </tbody>
+</table>
+
+@section scripts{
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        function Delete(id) {
+                $.ajax({ url: '/Student/Delete/' + id, type: 'POST',
+                    success: function (result) {
+                    window.location.href = '/student/Index';                  
+                    },
+                    error: function () {
+                        console.log("fail!");
+                    }
+                });
+            }
+        
+    </script>
+    <script>
+        function filterTable() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1]; // Column index 0 is the Name column
+
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
+}
